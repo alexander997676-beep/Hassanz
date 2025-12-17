@@ -3,211 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hassan & Faizan Galaxy</title>
-    <!-- جدید فونٹس -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <title>Hassan & Faizan 2028 Edition</title>
+    <!-- 2028 Futuristic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;600;900&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- General Setup --- */
+        /* --- 2028 Core Settings --- */
         :root {
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-            --glow: #7f00ff; /* Purple Glow */
-            --accent: #00d2ff; /* Blue Accent */
+            --bg-dark: #030303;
+            --accent-1: #b0fb5d; /* Acid Green */
+            --accent-2: #6d5dfb; /* Deep Purple */
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         body {
             margin: 0;
-            padding: 0;
-            background-color: #050505;
-            font-family: 'Outfit', sans-serif;
+            padding: 40px 20px;
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Unbounded', sans-serif;
             min-height: 100vh;
+            /* سینٹر کرنے کی سیٹنگ */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: white;
-            overflow-x: hidden;
+            justify-content: center; /* مواد کو بالکل درمیان میں لاتا ہے */
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* --- Animated Background Orbs (Nebulas) --- */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
+        /* --- Noise Overlay (Cinematic Grain) --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* --- Ambient Glow --- */
+        .glow-spot {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(109, 93, 251, 0.15), transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
             z-index: -1;
-            animation: floatOrb 10s infinite alternate;
-        }
-        .orb-1 { width: 400px; height: 400px; background: #7f00ff; top: -100px; left: -100px; opacity: 0.4; }
-        .orb-2 { width: 500px; height: 500px; background: #00d2ff; bottom: -100px; right: -100px; opacity: 0.3; animation-delay: -5s; }
-
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 50px) scale(1.1); }
+            animation: pulseGlow 10s infinite alternate;
         }
 
-        /* --- Header Title --- */
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+
+        /* --- Main Layout Container --- */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* --- Header --- */
         h1 {
-            font-family: 'Syncopate', sans-serif; /* Futuristic Font */
-            font-size: 3.5rem;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            margin-bottom: 50px;
+            font-size: 4rem;
+            font-weight: 900;
             text-align: center;
-            background: linear-gradient(to right, #fff, #b3b3b3);
+            text-transform: uppercase;
+            letter-spacing: -2px; /* Tight modern spacing */
+            margin: 0;
+            background: linear-gradient(180deg, #fff, #666);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: fadeIn 2s ease-out;
+            position: relative;
+            z-index: 10;
         }
 
-        /* --- Glass Cards Container --- */
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 50px;
-            perspective: 1000px;
+        /* --- Bento Grid Gallery --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
         }
 
-        .glass-card {
-            width: 280px;
-            height: 320px;
+        .card {
+            position: relative;
+            height: 350px;
+            border-radius: 24px;
+            overflow: hidden;
             background: var(--glass);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 15px;
-            /* Frosted Glass Effect */
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .glass-card img {
+        .card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px;
-            transition: 0.4s;
-            filter: brightness(0.9);
-        }
-
-        /* Hover Effects */
-        .glass-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 15px 50px rgba(127, 0, 255, 0.3); /* Purple Glow */
-        }
-
-        .glass-card:hover img {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
-        /* Shining line effect on hover */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-25deg);
+            opacity: 0.8;
             transition: 0.5s;
-        }
-        .glass-card:hover::before {
-            left: 150%;
+            filter: grayscale(20%);
         }
 
-        /* --- Text Container --- */
-        .info-box {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        /* Hover Effect: Animated Border & Zoom */
+        .card:hover {
+            transform: scale(0.98);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card:hover img {
+            opacity: 1;
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        /* --- Floating Info Capsule --- */
+        .capsule {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            padding: 30px 60px;
-            border-radius: 30px;
-            text-align: center;
-            margin-bottom: 40px;
-            animation: slideUp 1.5s ease-out;
+            border: 1px solid var(--border);
+            padding: 20px 40px;
+            border-radius: 100px;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .capsule:hover {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 30px rgba(176, 251, 93, 0.1);
+            border-color: var(--accent-1);
+        }
+
+        .text-content {
+            text-align: left;
         }
 
         .main-sentence {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            /* Gradient Text */
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2px;
         }
 
-        .small-class {
-            font-size: 0.9rem;
+        .class-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: rgba(255,255,255,0.7);
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 10px;
-            display: inline-block;
+            letter-spacing: 2px;
         }
 
-        /* --- Footer --- */
+        /* --- The "Chip" (Right side of capsule) --- */
+        .chip {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: black;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--accent-1);
+        }
+
+        /* --- Compact Footer --- */
         .footer {
-            margin-top: auto;
-            color: rgba(255,255,255,0.4);
+            text-align: center;
+            font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 10px; /* Minimal space */
+            padding-bottom: 0;
         }
-
-        /* --- Animations --- */
-        @keyframes fadeIn { from { opacity: 0; letter-spacing: 20px; } to { opacity: 1; letter-spacing: 10px; } }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; letter-spacing: 5px; }
-            .glass-card { width: 90%; height: auto; aspect-ratio: 1/1; }
-            .main-sentence { font-size: 1.5rem; }
-            .orb { opacity: 0.2; }
+            h1 { font-size: 2.5rem; }
+            .capsule { flex-direction: column; text-align: center; gap: 15px; border-radius: 24px; }
+            .text-content { text-align: center; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .card { height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Nebulas -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
+    <!-- Background Glow -->
+    <div class="glow-spot"></div>
 
-    <h1>AND HASSAN AND</h1>
+    <div class="container">
+        <!-- Title -->
+        <h1>And Hassan And</h1>
 
-    <div class="gallery">
-        <div class="glass-card">
-            <img src="https://i.supaimg.com/74f25cae-6b69-46f5-8784-8f23578efcd0.png" alt="Hassan">
+        <!-- Image Grid -->
+        <div class="bento-grid">
+            <div class="card"><img src="https://i.supaimg.com/74f25cae-6b69-46f5-8784-8f23578efcd0.png" alt="H"></div>
+            <div class="card"><img src="https://i.supaimg.com/dc5656c8-9ef7-4a86-9b3b-df1c27d54224.png" alt="H"></div>
+            <div class="card"><img src="https://i.supaimg.com/3d9b4833-b3c2-4016-99c4-2a9b141e24b6.png" alt="H"></div>
         </div>
-        <div class="glass-card">
-            <img src="https://i.supaimg.com/dc5656c8-9ef7-4a86-9b3b-df1c27d54224.png" alt="Hassan">
-        </div>
-        <div class="glass-card">
-            <img src="https://i.supaimg.com/3d9b4833-b3c2-4016-99c4-2a9b141e24b6.png" alt="Hassan">
-        </div>
-    </div>
 
-    <div class="info-box">
-        <div class="main-sentence">Yeh yeh kam karta hai</div>
-        <div class="small-class">Class Ninth</div>
-    </div>
+        <!-- Info Capsule (Text) -->
+        <div class="capsule">
+            <div class="text-content">
+                <div class="main-sentence">Yeh yeh kam karta hai</div>
+                <div class="class-tag">Class Ninth • Ver 2.0</div>
+            </div>
+            <!-- Aesthetic Chip Icon -->
+            <div class="chip">➔</div>
+        </div>
 
-    <div class="footer">
-        Designed by Muhammad Faizan Ahmed
+        <!-- Footer -->
+        <div class="footer">
+            Designed by Muhammad Faizan Ahmed
+        </div>
     </div>
 
 </body>
